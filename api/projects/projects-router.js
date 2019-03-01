@@ -91,4 +91,27 @@ router.delete('/:id', (req, res) => {
         });
 });
 
+router.put('/:id', (req, res) => {
+    const projectInfo = req.body;
+    const id = req.params.id;
+
+    db('projects')
+        .where({ id })
+        .update(projectInfo)
+        .then(count => {
+            if (count > 0) {
+                db('projects')
+                    .where({ id })
+                    .then(project => {
+                        res.status(200).json(project);
+                    });
+            } else {
+                res.status(404).json({ errorMessage: 'There is not project with that ID.' });
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'There was an error updating the project.' });
+        });
+});
+
 module.exports = router;
