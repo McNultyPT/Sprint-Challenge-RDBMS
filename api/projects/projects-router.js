@@ -73,4 +73,22 @@ router.post('/', (req, res) => {
         });
 });
 
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    db('projects')
+        .where({ id })
+        .del()
+        .then(count => {
+            if (count > 0) {
+                res.status(204).end();
+            } else {
+                res.status(404).json({ errorMessage: 'There is not project with that ID.' });
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'There was an error deleting the project.' });
+        });
+});
+
 module.exports = router;
