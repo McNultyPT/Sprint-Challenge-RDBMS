@@ -14,7 +14,6 @@ exports.up = function(knex, Promise) {
         tbl
             .string('description')
             .notNullable()
-            .unique();
 
         tbl.string('notes');
 
