@@ -72,4 +72,27 @@ router.delete('/:id', (req, res) => {
         });
 });
 
+router.put('/:id', (req, res) => {
+    const actionInfo = req.body;
+    const id = req.params.id;
+
+    db('actions')
+        .where({ id })
+        .update(actionInfo)
+        .then(count => {
+            if (count > 0) {
+                db('actions')
+                    .where({ id })
+                    .then(action => {
+                        res.status(200).json(action);
+                    });
+            } else {
+                res.status(404).json({ errorMessage: 'There is not an action with that ID.' });
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'There was an error updating the action.' });
+        });
+});
+
 module.exports = router;
