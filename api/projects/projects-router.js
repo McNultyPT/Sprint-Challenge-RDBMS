@@ -15,6 +15,23 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+
+    db('projects')
+        .where({ id })
+        .then(project => {
+            if(project.length > 0) {
+                res.status(200).json(project);
+            } else {
+                res.status(404).json({ errorMessage: 'There is no project with that ID.' });
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'The project could not be retrieved.' });
+        });
+});
+
 router.get('/:id/actions', (req, res) => {
     const id = req.params.id;
 
