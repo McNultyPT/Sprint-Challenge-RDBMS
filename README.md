@@ -34,10 +34,19 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 1. Explain the difference between `RDBMS` and `SQL`.
 
-  initial push
+  An 'RDBMS' is a Relational Database Management System, while SQL is a framework that is to manage an RDBMS.
+
 1. Why do tables need a `primary key`?
+
+  So that they have a way to indentify a record in a table.
+
 1. What is the name given to a table column that references the primary key on another table.
+
+  It is a foreign key.
+
 1. What do we need in order to have a _many to many_ relationship between two tables.
+
+  You need to create a third table that has the foreign keys that reference the primary key on the other tables.
 
 ## Project Set Up
 
