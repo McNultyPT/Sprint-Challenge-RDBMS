@@ -5,6 +5,25 @@ const knexConfig = require('../../knexfile.js');
 
 const db = knex(knexConfig.development);
 
+router.get('/:id/actions', (req, res) => {
+    const id = req.params.id;
+
+    db('projects')
+        .where({ id })
+        .first()
+        .then(project => {
+            db('actions')
+                .where({ project_id: id })
+                .then(actions => {
+                    project.actions = actions;
+                    res.status(200).json(project)
+                });
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'The project and its actions could not be retrieved.' });
+        });
+});
+
 router.post('/', (req, res) => {
     const projectInfo = req.body;
 
