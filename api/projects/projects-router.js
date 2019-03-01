@@ -83,7 +83,7 @@ router.delete('/:id', (req, res) => {
             if (count > 0) {
                 res.status(204).end();
             } else {
-                res.status(404).json({ errorMessage: 'There is not project with that ID.' });
+                res.status(404).json({ errorMessage: 'There is not a project with that ID.' });
             }
         })
         .catch(() => {
