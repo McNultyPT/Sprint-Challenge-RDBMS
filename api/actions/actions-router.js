@@ -5,6 +5,16 @@ const knexConfig = require('../../knexfile.js');
 
 const db = knex(knexConfig.development);
 
+router.get('/', (req, res) => {
+    db('actions')
+        .then(actions => {
+            res.status(200).json(actions);
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'The actions could not be retrieved.' });
+        });
+});
+
 router.post('/', (req, res) => {
     const actionInfo = req.body;
 
