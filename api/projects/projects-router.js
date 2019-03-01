@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
     db('projects')
         .where({ id })
         .then(project => {
-            if(project.length > 0) {
+            if (project.length > 0) {
                 res.status(200).json(project);
             } else {
                 res.status(404).json({ errorMessage: 'There is no project with that ID.' });

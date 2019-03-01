@@ -15,6 +15,23 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+
+    db('actions')
+        .where({ id })
+        .then(action => {
+            if (action.length > 0) {
+                res.status(200).json(action);
+            } else {
+                res.status(404).json({ errorMessage: 'There is no action with that ID.' });
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'The action could not be retrieved.' });
+        });
+});
+
 router.post('/', (req, res) => {
     const actionInfo = req.body;
 
